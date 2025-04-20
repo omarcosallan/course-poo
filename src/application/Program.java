@@ -11,31 +11,42 @@ public class Program {
 		
 		Scanner sc = new Scanner(System.in);
 		
-		int n = sc.nextInt();
+		int row = sc.nextInt();
+		int column = sc.nextInt();
 		
-		int[][] mat = new int[n][n];
+		int[][] mat = new int[row][column];
 		
-		for (int i = 0; i < mat.length; i++) {
-			for (int j = 0; j < n; j++) {
+		for (int i = 0; i < row; i++) {
+			for (int j = 0; j < column; j++) {
 				mat[i][j] = sc.nextInt();
 			}
 		}
 		
-		System.out.println("Main diagonal:");
-		for (int i = 0; i < mat.length; i++) {
-			System.out.print(mat[i][i] + " ");
-		}
+		int search = sc.nextInt();
 		
-		int count = 0;
-		for (int i = 0; i < mat.length; i++) {
-			for (int j = 0; j < n; j++) {
-				if (mat[i][j] < 0) {
-					count++;
+		for (int i = 0; i < row; i++) {
+			for (int j = 0; j < column; j++) {
+				if (mat[i][j] == search) {
+					System.out.printf("\nPosition %d, %d:\n", i, j);
+					
+					if (j > 0) {
+						System.out.println("Left: " + mat[i][j - 1]);
+					}
+					
+					if (j < column - 1) {
+						System.out.println("Rigth: " + mat[i][j + 1]);
+					}
+					
+					if (i > 0) {
+						System.out.println("Up: " + mat[i - 1][j]);
+					}
+					
+					if (i < row - 1) {
+						System.out.println("Down: " + mat[i + 1][j]);
+					}
 				}
 			}
 		}
-
-		System.out.printf("\nNegative numbers = %d",  count);
 	
 		sc.close();
 	}
