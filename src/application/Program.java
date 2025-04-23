@@ -2,14 +2,11 @@ package application;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
 import java.util.Scanner;
 
-import entities.Department;
-import entities.HourContract;
-import entities.Worker;
-import entities.enums.WorkerLevel;
+import entities.Comment;
+import entities.Post;
 
 public class Program {
 
@@ -17,46 +14,31 @@ public class Program {
 
 		Locale.setDefault(Locale.US);
 		Scanner sc = new Scanner(System.in);
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy HH:mm:ss");
 		
-		System.out.print("Enter department's name: ");
-		String departmentName = sc.nextLine();
+		Comment c1 = new Comment("Have a nice trip!");
+		Comment c2 = new Comment("Wow that's awesome!");
 		
-		System.out.print("Enter worker data: ");
-		System.out.print("\nName: ");
-		String workerName = sc.nextLine();
-		System.out.print("Level: ");
-		String workerLevel = sc.nextLine();
-		System.out.print("Base salary: ");
-		double baseSalary = sc.nextDouble();
+		Post p1 = new Post(
+				sdf.parse("21/06/2018 13:05:44"), 
+				"Traveling to New Zealand", 
+				"I'm going to visit this wonderful country!", 
+				12);
+		p1.addComment(c1);
+		p1.addComment(c2);
 		
-		Worker worker = new Worker(workerName, WorkerLevel.valueOf(workerLevel), baseSalary, new Department(departmentName));
+		Comment c3 = new Comment("Good night");
+		Comment c4 = new Comment("May the Force be with you");
+		Post p2 = new Post(
+				sdf.parse("28/07/2018 23:14:19"), 
+				"Good night guys", 
+				"See you tomorrow", 	
+				5);
+		p2.addComment(c3);
+		p2.addComment(c4);
 		
-		System.out.print("How many contracts to this worker? ");
-		int n = sc.nextInt();
-		
-		for (int i = 1; i <= n; i++) {
-			System.out.println("Enter contract #" + i + " data:");
-			System.out.print("Date (DD/MM/YYYY): ");
-			Date contractDate = sdf.parse(sc.next());
-			System.out.print("Value per hour: ");
-			double valuePerHour = sc.nextDouble();
-			System.out.print("Duration (hours): ");
-			int hours = sc.nextInt();
-			
-			HourContract contract = new HourContract(contractDate, valuePerHour, hours);
-			
-			worker.addContract(contract);
-		}
-		
-		System.out.print("\nEnter month and year to calculate income (MM/YYYY): ");
-		String monthAndYear = sc.next();
-		
-		int month = Integer.parseInt(monthAndYear.substring(0, 2));
-		int year = Integer.parseInt(monthAndYear.substring(3));
-		System.out.println("Name: " + worker.getName());
-		System.out.println("Department: " + worker.getDepartment().getName());
-		System.out.println("Income for " + monthAndYear + ": " + String.format("%.2f", worker.income(year, month)));
+		System.out.println(p1);
+		System.out.println(p2);
 		
 		sc.close();
 	}
