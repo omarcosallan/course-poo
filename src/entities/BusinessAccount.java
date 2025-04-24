@@ -18,13 +18,10 @@ public class BusinessAccount extends Account {
 	public void setLoanLimit(Double loanLimit) {
 		this.loanLimit = loanLimit;
 	}
-<<<<<<< HEAD
 	
 	public void loan(double amount) {
 		if (amount <= loanLimit) {
 			balance += amount - 10.0;
 		}
 	}
-=======
->>>>>>> f957e2a641fdc034b89547486507bfb3629cc7b9
 }
