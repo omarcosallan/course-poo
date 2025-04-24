@@ -4,7 +4,11 @@ public class Account {
 	
 	private Integer number;
 	private String holder;
+<<<<<<< HEAD
 	protected Double balance;
+=======
+	private Double balance;
+>>>>>>> f957e2a641fdc034b89547486507bfb3629cc7b9
 	
 	public Account() {}
 
