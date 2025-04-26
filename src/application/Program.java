@@ -1,16 +1,14 @@
 package application;
 
 import java.text.ParseException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
-import entities.ImportedProduct;
+import entities.BusinessAccount;
 import entities.Product;
-import entities.UsedProduct;
+import entities.SavingsAccount;
 
 public class Program {
 
@@ -20,40 +18,18 @@ public class Program {
 		Scanner sc = new Scanner(System.in);
 		
 		List<Product> list = new ArrayList<>();
+	
+		list.add(new SavingsAccount(1001, "Alex", 500.0, 0.01));
+		list.add(new BusinessAccount(1002, "Maria", 1000.0, 400.0));
+		list.add(new SavingsAccount(1003, "Bob", 300.0, 0.01));
+		list.add(new BusinessAccount(1004, "Anna", 500.0, 500.0));
 		
-		System.out.print("Enter the number os products: ");
-		int n = sc.nextInt();
+		double sum = list.stream().mapToDouble(x -> x.getBalance()).sum();
+		System.out.printf("Total balance: %.2f%n", sum);
 		
-		for (int i=1; i<=n; i++) {
-			System.out.println("Dados do produto #" + i + ":");
-			System.out.print("Commom, used or imported (c/u/i)? ");
-			char type = sc.next().charAt(0);
-			System.out.print("Name: ");
-			sc.nextLine();
-			String name = sc.nextLine();
-			System.out.print("Price: ");
-			double price = sc.nextDouble();
-			if (type == 'c') {
-				list.add(new Product(name, price));
-			}
-			else if (type == 'u') {
-				System.out.print("Manufacture date (DD/MM/YYYY): ");
-				LocalDate date = LocalDate.parse(sc.next(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-				list.add(new UsedProduct(name, price, date));
-			}
-			else {
-				System.out.print("Customs fee: ");
-				double customsFee = sc.nextDouble();
-				list.add(new ImportedProduct(name, price, customsFee));
-			}
-		}
-
-		System.out.println();
-		System.out.println("PRICE TAGS:");
-		for (Product prod : list) {
-			System.out.println(prod.priceTag());
-		}
-		
-		sc.close();
+		list.stream().forEach(x -> {
+			x.deposit(10);
+			System.out.printf("Updated balance for account %d: %.2f%n", x.getNumber(), x.getBalance());
+		});
 	}
 }
