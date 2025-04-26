@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
+import entities.Account;
 import entities.BusinessAccount;
-import entities.Product;
 import entities.SavingsAccount;
 
 public class Program {
@@ -17,7 +17,7 @@ public class Program {
 		Locale.setDefault(Locale.US);
 		Scanner sc = new Scanner(System.in);
 		
-		List<Product> list = new ArrayList<>();
+		List<Account> list = new ArrayList<>();
 	
 		list.add(new SavingsAccount(1001, "Alex", 500.0, 0.01));
 		list.add(new BusinessAccount(1002, "Maria", 1000.0, 400.0));
