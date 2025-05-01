@@ -1,42 +1,29 @@
 package application;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
-
-import model.entities.Account;
-import model.exception.DomainException;
 
 public class Program {
 
 	public static void main(String[] args) {
 
-		Scanner sc = new Scanner(System.in);
+		File file = new File("c:\\temp\\in.txt");
+		Scanner sc = null;
 
 		try {
-			System.out.println("Enter account data");
-			System.out.print("Number: ");
-			int number = sc.nextInt();
-			System.out.print("Holder: ");
-			sc.nextLine();
-			String holder = sc.nextLine();
-			System.out.print("Initial balance: ");
-			double initialBalance = sc.nextDouble();
-			System.out.print("Withdraw limit: ");
-			double withdrawLimit = sc.nextDouble();
-
-			Account account = new Account(number, holder, initialBalance, withdrawLimit);
-
-			System.out.println();
-			System.out.print("Enter amout for withdraw: ");
-			double amout = sc.nextDouble();
-			account.withdraw(amout);
+			sc = new Scanner(file);
 			
-			System.out.println("New balance: " + account.getBalance());
-		} catch (DomainException e) {
-			System.out.println("Withdraw error: " + e.getMessage());
-		} catch (RuntimeException e) {
-			System.out.println("Unexpected error");
+			while (sc.hasNext()) {
+				System.out.println(sc.nextLine());
+			}
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
 		} finally {
-			sc.close();
+			if (sc != null) {
+				sc.close();
+			}
 		}
+		
 	}
 }
