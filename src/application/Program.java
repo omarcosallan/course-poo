@@ -1,42 +1,20 @@
 package application;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
-import java.util.Scanner;
-
-import entities.Contract;
-import services.ContractService;
-import services.PaypalService;
+import entities.AbstractShape;
+import entities.Circle;
+import entities.Rectangle;
+import enums.Color;
 
 public class Program {
 
 	public static void main(String[] args) {
 
-		Locale.setDefault(Locale.US);
-		Scanner sc = new Scanner(System.in);
-		
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		
-		System.out.println("Entre os dados do contrato:");
-		System.out.print("Número: ");
-		int number = sc.nextInt();
-		System.out.print("Data (dd/MM/yyyy): ");
-		LocalDate date = LocalDate.parse(sc.next(), dtf);
-		System.out.print("Valor do contrato: ");
-		double totalValue = sc.nextDouble();
-		
-		Contract contract = new Contract(number, date, totalValue);
-		
-		System.out.print("Entre com o número de parcelas: ");
-		int n = sc.nextInt();
-		
-		ContractService cs = new ContractService(new PaypalService());
-		cs.processContract(contract, n);
-		
-		System.out.println("Parcelas:");
-		contract.getInstallments().stream().forEach(System.out::println);
-		
-		sc.close();
+		AbstractShape s1 = new Circle(Color.BLACK, 2.0);
+		AbstractShape s2 = new Rectangle(Color.WHITE, 3.0, 4.0);
+
+		System.out.println("Circle color: " + s1.getColor());
+		System.out.println("Circle area: " + String.format("%.3f", s1.area()));
+		System.out.println("Rectangle color: " + s2.getColor());
+		System.out.println("Rectangle area: " + String.format("%.3f", s2.area()));
 	}
 }
