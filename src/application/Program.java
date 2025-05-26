@@ -1,34 +1,28 @@
 package application;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import entities.Product;
-import services.CalculationService;
+import entities.Circle;
+import entities.Rectangle;
+import entities.Shape;
 
 public class Program {
 
 	public static void main(String[] args) {
 
-		List<Product> list = new ArrayList<Product>();
+		List<Shape> myShapes = new ArrayList<>();
+		myShapes.add(new Rectangle(3.0, 2.0));
+		myShapes.add(new Circle(2.0));
 		
-		String path = "C:\\temp\\in.txt";
-		
-		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-			while (br.ready()) {
-				String line = br.readLine();
-				String[] fields = line.split(",");
-				list.add(new Product(fields[0], Double.parseDouble(fields[1])));
-			}
-			
-			Product x = CalculationService.max(list);
-			System.out.println("Max:");
-			System.out.println(x);
-		} catch (IOException e) {
-			System.out.println("Error: " + e.getMessage());
+		System.out.println("Total area: " + totalArea(myShapes));
+	}
+
+	public static double totalArea(List<? extends Shape> list) {
+		double sum = 0.0;
+		for (Shape s : list) {
+			sum += s.area();
 		}
+		return sum;
 	}
 }
