@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.Instant;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Scanner;
@@ -17,25 +18,34 @@ public class Program {
 
 		Scanner sc = new Scanner(System.in);
 
-		System.out.print("Enter file full path: ");
-		String path = sc.nextLine();
+		Set<Integer> a = new HashSet<Integer>();
+		Set<Integer> b = new HashSet<Integer>();
+		Set<Integer> c = new HashSet<Integer>();
 		
-		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-			Set<LogEntry> set = new HashSet<>();
-			
-			while (br.ready()) {
-				String line = br.readLine();
-				String[] fields = line.split(" ");
-				String username = fields[0];
-				Date moment = Date.from(Instant.parse(fields[1]));
-				
-				set.add(new LogEntry(username, moment));
-			}
-			
-			System.out.println("Total users: " + set.size());
-		} catch (IOException e) {
-			System.out.println("Error: " + e.getMessage());
+		System.out.print("How many students for course A? ");
+		int n = sc.nextInt();
+		for (int i = 0; i < n; i++) {
+			a.add(sc.nextInt());
 		}
+		
+		System.out.print("How many students for course B? ");
+		n = sc.nextInt();
+		for (int i = 0; i < n; i++) {
+			a.add(sc.nextInt());
+		}
+		
+		System.out.print("How many students for course C? ");
+		n = sc.nextInt();
+		for (int i = 0; i < n; i++) {
+			a.add(sc.nextInt());
+		}
+		
+		Set<Integer> total = new HashSet<Integer>(a);
+		total.addAll(b);
+		total.addAll(c);
+		
+		System.out.println("Total students: " + total.size());
+		
 		sc.close();
 	}
 }
